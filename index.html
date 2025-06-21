@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raghupathy Raja | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(145deg, #15002b, #32004a);
+      color: #f4f4f5;
+      overflow-x: hidden;
+    }
+
+    .slideshow-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1s ease-in-out;
+    }
+
+    #typewriter {
+      min-height: 2.5rem;
+      display: inline-block;
+      font-size: 2rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .center-layout {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .center-content h1 {
+      font-size: 2rem;
+    }
+
+    .center-content p {
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    .grid-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .card {
+      aspect-ratio: 1 / 1;
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: transform 0.4s ease, box-shadow 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #9f3ce1;
+    }
+
+    .card-inner {
+      text-align: center;
+      animation: fadeZoom 0.6s ease forwards;
+    }
+
+    .card img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 1rem;
+      filter: brightness(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.1);
+    }
+
+    .card span {
+      display: block;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #230036;
+      padding: 2rem;
+      border-radius: 20px;
+      transform: scale(0.6);
+      transition: transform 0.4s ease;
+      width: 90%;
+      max-width: 650px;
+      color: #f8f9fa;
+      box-shadow: 0 0 20px #8e2de2;
+      animation: fadeZoom 0.4s ease forwards;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal.active .modal-content {
+      transform: scale(1);
+    }
+
+    .close-btn {
+      text-align: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #7a6ff0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #b3b3b3;
+      background: #15002b;
+    }
+
+    @keyframes fadeZoom {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
+    }
+     .modal-content button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #7a6ff0, #9f3ce1);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.modal-content button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #9f3ce1, #7a6ff0);
+}
+
+  </style>
+</head>
+<body>
+  <div class="slideshow-bg" id="slideshow-bg"></div>
+
+  <div class="center-layout">
+    <div class="center-content">
+      <h1 id="typewriter"></h1>
+      <p>Explore my work & journey</p>
+    </div>
+    <div class="grid-wrapper">
+      <div class="card" onclick="openModal('about')"><div class="card-inner"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="About"><span>About Me</span></div></div>
+      <div class="card" onclick="openModal('skills')"><div class="card-inner"><img src="https://cdn-icons-png.flaticon.com/512/2721/2721287.png" alt="Skills"><span>Skills</span></div></div>
+      <div class="card" onclick="openModal('projects')"><div class="card-inner"><img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" alt="Projects"><span>Projects</span></div></div>
+      <div class="card" onclick="openModal('certifications')"><div class="card-inner"><img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Certifications"><span>Certifications</span></div></div>
+      <div class="card" onclick="openModal('internships')"><div class="card-inner"><img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png" alt="Internships"><span>Internships</span></div></div>
+      <div class="card" onclick="openModal('contact')"><div class="card-inner"><img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Contact"><span>Contact</span></div></div>
+      <div class="card"><a href="Raghupathy_Raja_Resume.pdf" download target="_blank" style="text-decoration: none; display: flex; align-items: center; justify-content: center; height: 100%;"><div class="card-inner"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="Resume"><span>Download Resume</span></div></a></div>
+    </div>
+  </div>
+
+  <!-- ? Insert Modal Sections Here (About, Skills, Projects, Certifications, Internships, Contact) -->
+  <div id="about" class="modal">
+  <div class="modal-content">
+    <div class="close-btn" onclick="closeModal('about')">&times;</div>
+    <h2>About Me</h2>
+    <p>I’m Raghupathy Raja, an aspiring Software Developer with a B.Sc. in AI & ML. passionate about technology and innovation, I bring a strong foundation in programming, data analysis, and automation. My hands-on experience with Python, R, UiPath, and Tableau—gained through internships and academic projects—has equipped me to tackle real-world challenges in data science and process automation. I have successfully contributed to projects such as an Image Editor and a Film Information System, demonstrating my ability to manage timelines, apply problem-solving skills, and work collaboratively. With certifications in Python, time management, and AI fundamentals, I am committed to continuous learning and ready to contribute to technology-driven teams.</p>
+  </div>
+</div>
+<div id="skills" class="modal">
+  <div class="modal-content">
+    <div class="close-btn" onclick="closeModal('skills')">&times;</div>
+    <h2>Skills</h2>
+    <ul>
+      <li><strong>Languages:</strong> Python, R</li>
+      <li><strong>Web:</strong> HTML, CSS</li>
+      <li><strong>Tools:</strong> Excel, Tableau, PowerPoint, Word, UiPath</li>
+      <li><strong>Soft Skills:</strong> Teamwork, Time Management, Communication</li>
+    </ul>
+  </div>
+</div>
+<div id="projects" class="modal">
+  <div class="modal-content">
+    <div class="close-btn" onclick="closeModal('projects')">&times;</div>
+    <h2>Projects</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+      <div style="flex: 1 1 45%; background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+        <h3>Image Adjuster</h3>
+        <p><strong>Tech:</strong> Python, Tkinter, PIL</p>
+        <ul>
+          <li>Real-time image editing with brightness & contrast sliders</li>
+          <li>HSV color shift using NumPy</li>
+          <li>Custom filters + Save feature</li>
+        </ul>
+      </div>
+      <div style="flex: 1 1 45%; background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+        <h3>FilmFinder</h3>
+        <p><strong>Tech:</strong> Python, Tkinter, IMDbPy</p>
+        <ul>
+          <li>Movie lookup with IMDb details (title, cast, rating)</li>
+          <li>Genre-based recommendations</li>
+          <li>Interactive GUI with dynamic tree views</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="certifications" class="modal">
+  <div class="modal-content" style="max-height: 90vh; overflow-y: auto;">
+    <div class="close-btn" onclick="closeModal('certifications')">&times;</div>
+    <h2>Certifications</h2>
+    <h3>Infosys Springboard</h3>
+    <ul><li>Python Essentials</li><li>Time Management</li></ul>
+    <h3>Great Learning</h3>
+    <ul><li>R Programming</li><li>Robotics & AI</li></ul>
+    <h3>Add-on Courses</h3>
+    <ul><li>RPA with UiPath</li><li>DevOps</li></ul>
+    <button onclick="toggleCertificates()" style="margin-top: 1rem;">View Certificates</button>
+    <div id="cert-images" style="display: none; margin-top: 1rem;">
+      <img src="Devops certificate.jpeg" alt="DevOps" style="max-width: 100%; border-radius: 10px; margin-bottom: 1rem;">
+      <img src="RPA certificate.jpeg" alt="RPA" style="max-width: 100%; border-radius: 10px;">
+    </div>
+  </div>
+</div>
+<div id="internships" class="modal">
+  <div class="modal-content" style="max-height: 90vh; overflow-y: auto;">
+    <div class="close-btn" onclick="closeModal('internships')">&times;</div>
+    <h2>Internships</h2>
+    <h3>Net Tel Solutions</h3>
+    <p>Internship in Python & Data Science (Dec 2023) During this internship, I developed a solid foundation in Python programming and data science fundamentals. I learned to work with libraries like NumPy and pandas for data manipulation, and applied basic data visualization techniques using Matplotlib. The program also introduced me to real-world data sets, enabling me to clean, analyze, and derive insights using Python scripts. This hands-on experience sharpened my analytical thinking and coding proficiency in data-centric projects.</p>
+    <h3>Sprout Info Solutions</h3>
+    <p>Internship in Python Programming (May–June 2024)This internship focused on core Python concepts and their practical implementation. I worked on control structures, functions, file handling, and modular programming. I also explored automation techniques such as batch file processing and GUI development using Tkinter. With mentor-led guidance, I improved my problem-solving abilities and wrote efficient code to build real-time mini applications. The experience deepened my understanding of structured programming and Python development practices.</p>
+    <button onclick="toggleInternshipCertificates()" style="margin-top: 1rem;">View Certificates</button>
+    <div id="internship-cert-images" style="display: none; margin-top: 1rem;">
+      <img src="Internship 1 certificate.jpeg" alt="Internship 1" style="max-width: 100%; border-radius: 10px; margin-bottom: 1rem;">
+      <img src="Internship 2 certificate.jpeg" alt="Internship 2" style="max-width: 100%; border-radius: 10px;">
+    </div>
+  </div>
+</div>
+<div id="contact" class="modal">
+  <div class="modal-content">
+    <div class="close-btn" onclick="closeModal('contact')">&times;</div>
+    <h2>Contact Me</h2>
+    <p><strong>Email:</strong> <a href="mailto:raghupathyrajaoff@gmail.com">raghupathyrajaoff@gmail.com</a></p>
+    <p><strong>Phone:</strong> +91 88255 33789</p>
+    <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/raghupathy-raja-0969a9370" target="_blank">LinkedIn</a></p>
+    <p><strong>Location:</strong> Coimbatore, Tamil Nadu</p>
+  </div>
+</div>
+
+
+  <footer>
+    &copy; 2025 Raghupathy Raja • 
+    <a href="mailto:raghupathyrajaoff@gmail.com" style="color:#8e2de2;text-decoration:none;">??</a>
+    <a href="https://linkedin.com/in/raghupathy-raja-0969a9370" target="_blank" style="color:#8e2de2;text-decoration:none;margin-left:10px;">??</a>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    const words = ["Hi, I'm Raghupathy Raja.", "Python Developer.", "AI Enthusiast.", "Software Explorer."];
+    let i = 0, j = 0, currentWord = '', isDeleting = false;
+    function type() {
+      if (i < words.length) {
+        let fullText = words[i];
+        if (isDeleting) {
+          currentWord = fullText.substring(0, j--);
+        } else {
+          currentWord = fullText.substring(0, j++);
+        }
+        document.getElementById('typewriter').innerHTML = currentWord;
+        let speed = isDeleting ? 50 : 100;
+        if (!isDeleting && j === fullText.length) {
+          isDeleting = true;
+          speed = 1000;
+        } else if (isDeleting && j === 0) {
+          isDeleting = false;
+          i = (i + 1) % words.length;
+          speed = 300;
+        }
+        setTimeout(type, speed);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', type);
+
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
+        document.body.style.overflow = 'auto';
+      }
+    });
+  </script>
+
+  <!-- Background Slideshow -->
+  <script>
+    const images = ["bg1.jpg", "bg2.jpg", "bg3.jpg", "bg4.jpg", "bg5.jpg"];
+    let currentImage = 0;
+    const slideshow = document.getElementById("slideshow-bg");
+
+    function changeBackground() {
+      slideshow.style.backgroundImage = `url('${images[currentImage]}')`;
+      currentImage = (currentImage + 1) % images.length;
+    }
+
+    changeBackground();
+    setInterval(changeBackground, 6000);
+  </script>
+<script>
+  function toggleCertificates() {
+    const certs = document.getElementById("cert-images");
+    if (certs) {
+      certs.style.display = certs.style.display === "none" ? "block" : "none";
+    }
+  }
+
+  function toggleInternshipCertificates() {
+    const container = document.getElementById("internship-cert-images");
+    if (container) {
+      container.style.display = container.style.display === "none" ? "block" : "none";
+    }
+  }
+</script>
+</body>
+</html>
